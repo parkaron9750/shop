@@ -34,6 +34,10 @@ public class Item {
     @Column(name = "item_stock", nullable = false)
     private int stock;
 
+    //상품 상태
+    @Column(name = "item_status")
+    private ItemSellStatus status;
+
     //상품 상세내용
     @Lob
     @Column(name = "item_detail", nullable = false)
