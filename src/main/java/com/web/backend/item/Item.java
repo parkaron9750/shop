@@ -1,11 +1,8 @@
-package com.web.backend.item.entity;
+package com.web.backend.item;
 
-import com.web.backend.item.itemconst.ItemSellStatus;
 import jakarta.persistence.*;
 import lombok.*;
-import org.antlr.v4.runtime.misc.NotNull;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
