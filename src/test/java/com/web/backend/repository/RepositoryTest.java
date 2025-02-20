@@ -47,4 +47,14 @@ public class RepositoryTest {
         }
     }
 
+    @Test
+    @DisplayName("JPQL 쿼리 NATIVE 테스트")
+    void findByItemDetailNativeTest(){
+        createItem();
+        List<Item> itemList = repository.findByItemDetailNative("테스트");
+        for (Item item : itemList) {
+            log.info("item={}",item);
+        }
+    }
+
 }

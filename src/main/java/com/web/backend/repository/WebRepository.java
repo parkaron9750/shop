@@ -20,4 +20,13 @@ public interface WebRepository extends JpaRepository<Item, Long> {
     @Query("select i from Item i where i.itemDetail like %:itemDetail% "
             + "order by i.price asc")
     List<Item> findByItemDetail(@Param("itemDetail") String itemDetail);
+
+    /**
+     * NativeQuery 를 사용하려면 MySQl에 있는 Table Colum명이랑 일치 해야한다.
+     * @param itemDetail
+     * @return
+     */
+    @Query(value = "select * from item i where i.item_detail like %:item_detail% "
+            + "order by i.item_price desc", nativeQuery = true)
+    List<Item> findByItemDetailNative(@Param("item_detail") String itemDetail);
 }
