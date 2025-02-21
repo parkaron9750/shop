@@ -3,13 +3,14 @@ package com.web.backend.repository;
 import com.web.backend.item.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface WebRepository extends JpaRepository<Item, Long> {
+public interface WebRepository extends JpaRepository<Item, Long>, QuerydslPredicateExecutor<Item> {
     /**
      * LessThan - 가격이 낮을 것을 database에서 가져온다
      * findBy - database 에서 값을 가져온다.

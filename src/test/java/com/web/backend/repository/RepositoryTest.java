@@ -1,5 +1,6 @@
 package com.web.backend.repository;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.web.backend.item.Item;
 import com.web.backend.item.ItemSellStatus;
@@ -10,6 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,6 +24,7 @@ import static com.web.backend.item.QItem.item;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@Transactional
 public class RepositoryTest {
 
     private static final Logger log = LoggerFactory.getLogger(RepositoryTest.class);
@@ -45,6 +52,32 @@ public class RepositoryTest {
             repository.save(item);
         }
     }
+
+    public void createItemList(){
+        for (int i = 1; i < 5; i++) {
+            Item item = new Item();
+            item.setItemName("TestItem" + i);
+            item.setPrice(10000 + i);
+            item.setStock(10 + i);
+            item.setStatus(ItemSellStatus.SELL);
+            item.setItemDetail("테스트 상세 내용" + i);
+            item.setItemRegDate(LocalDateTime.now());
+            item.setUpdateTime(LocalDateTime.now());
+            repository.save(item);
+        }
+        for (int i = 6; i < 10; i++) {
+            Item item = new Item();
+            item.setItemName("TestItem" + i);
+            item.setPrice(10000 + i);
+            item.setStock(0);
+            item.setStatus(ItemSellStatus.SOLD_OUT);
+            item.setItemDetail("테스트 상세 내용" + i);
+            item.setItemRegDate(LocalDateTime.now());
+            item.setUpdateTime(LocalDateTime.now());
+            repository.save(item);
+        }
+    }
+
     @Test
     @DisplayName("JPQL 쿼리 ASC 테스트")
     void findByItemDetailTest(){
@@ -70,19 +103,49 @@ public class RepositoryTest {
     }
 
     @Test
-    @DisplayName("QueryDSL 테스트")
+    @DisplayName("QueryDSL desc() 테스트")
     void queryDSLTest(){
         createItem();
         List<Item> result = queryFactory
                 .selectFrom(item)
-                .where(item.status.eq(ItemSellStatus.SELL))
+                .where(item.status.eq(ItemSellStatus.SELL),
+                        item.itemDetail.like("1")
+                )
                 .orderBy(item.price.desc())
                 .fetch();
 
         for (Item item : result) {
             log.info("item={}",item);
         }
+    }
 
+    @Test
+    @DisplayName("QueryDSL Test")
+    void queryDSLTest2(){
+        createItemList();
+
+        String itemDetail="테스트";
+        int price =10003;
+        String itemSellStatus = "SELL";
+
+        BooleanBuilder builder = new BooleanBuilder();
+
+        builder.and(item.itemDetail.like("%"+ itemDetail +"%"));
+        builder.and(item.price.gt(price));
+
+
+        if (StringUtils.equals(itemSellStatus, ItemSellStatus.SELL)) {
+            builder.and(item.status.eq(ItemSellStatus.SELL));
+        }
+        Pageable pageable = PageRequest.of(0, 5);
+
+        Page<Item> result = repository.findAll(builder, pageable);
+        log.info("전체 원소 갯수={}",result.getTotalElements());
+
+        List<Item> content = result.getContent();
+        for (Item item1 : content) {
+            log.info("item1={}",item1);
+        }
     }
 
 }
