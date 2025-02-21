@@ -32,6 +32,10 @@ spring:
 
     hibernate:
       ddl-auto: create
+server:
+  servlet:
+    encoding:
+      force-response: true
 
 
 
