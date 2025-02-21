@@ -1,4 +1,4 @@
-package com.web.backend.repository;
+package com.web.backend.item.repository;
 
 import com.web.backend.item.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface WebRepository extends JpaRepository<Item, Long>, QuerydslPredicateExecutor<Item> {
+public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredicateExecutor<Item> {
     /**
      * LessThan - 가격이 낮을 것을 database에서 가져온다
      * findBy - database 에서 값을 가져온다.
@@ -20,7 +20,6 @@ public interface WebRepository extends JpaRepository<Item, Long>, QuerydslPredic
     @Query("select i from Item i where i.itemDetail like %:itemDetail% "
             + "order by i.price asc")
     List<Item> findByItemDetail(@Param("itemDetail") String itemDetail);
-
 
     /**
      * NativeQuery 를 사용하려면 MySQl에 있는 Table Colum명이랑 일치 해야한다.

@@ -4,6 +4,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.web.backend.item.Item;
 import com.web.backend.item.ItemSellStatus;
+import com.web.backend.item.repository.ItemRepository;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,7 @@ public class RepositoryTest {
     private JPAQueryFactory queryFactory = new JPAQueryFactory(em);
 
     @Autowired
-    WebRepository repository;
+    ItemRepository repository;
 
     public void createItem(){
         for (int i = 0; i < 10; i++) {

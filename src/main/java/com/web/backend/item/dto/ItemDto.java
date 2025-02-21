@@ -1,4 +1,4 @@
-package com.web.backend.dto;
+package com.web.backend.item.dto;
 
 import com.web.backend.item.ItemSellStatus;
 import lombok.Getter;
