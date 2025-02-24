@@ -25,14 +25,31 @@ public class MemberController {
 
     private final PasswordEncoder passwordEncoder;
 
+    @GetMapping("/login")
+    public String loginPage() {
+        return "member/memberLogin";
+    }
+
+
     @GetMapping("/new")
-    public String createMember(@ModelAttribute("member") MemberDto memberDto) {
+    public String createPage(@ModelAttribute("member") MemberDto memberDto) {
         return "member/memberForm";
 
     }
 
+    @GetMapping("/login/error")
+    public String loginErrorPage(Model model) {
+        model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호가 일치하지 않습니다.");
+        return "member/memberLogin";
+    }
+
+//    @PostMapping("/login")
+//    public String login(@Valid @ModelAttribute("member") MemberDto memberDto, BindingResult bindingResult, Model model) {
+//
+//    }
+
     @PostMapping("/new")
-    public String memberSubmit(@Valid @ModelAttribute("member") MemberDto memberDto
+    public String createSubmit(@Valid @ModelAttribute("member") MemberDto memberDto
                                , BindingResult error, Model model) {
 
         //error 가 발생시 form으로 되돌린다.
