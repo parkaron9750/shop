@@ -15,6 +15,18 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        http.formLogin(form -> form
+                .loginPage("/member/login")
+                        .defaultSuccessUrl("/", true)
+                        .usernameParameter("email")
+                        .failureUrl("/member/login/error")
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/member/logout")
+                        .logoutSuccessUrl("/")
+                );
+
         return http.build();
     }
 
