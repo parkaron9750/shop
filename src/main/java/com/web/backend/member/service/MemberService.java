@@ -42,7 +42,7 @@ public class MemberService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         Member member = memberRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException(email));
-        
+
         return User.builder()
                 .username(member.getEmail())
                 .password(member.getPassword())

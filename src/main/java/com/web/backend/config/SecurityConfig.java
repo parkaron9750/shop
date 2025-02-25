@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -16,19 +17,31 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.formLogin(form -> form
-                .loginPage("/member/login")
+        /**
+         * requestMatchers 는 member 하위 폴더에 있는 파일들은 다 접근이 가능하지만 그 외 파일들은 인증 권한이 있는 사용자만 열수 있다.
+         */
+        http.authorizeHttpRequests((authz) -> authz
+                .requestMatchers(("/css/**")).permitAll()
+                .requestMatchers(("/member/**")).permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+        );
+
+        http.formLogin((form) -> form
+                        .loginPage("/member/login")
                         .defaultSuccessUrl("/", true)
                         .usernameParameter("email")
                         .failureUrl("/member/login/error")
                 )
-                .logout(logout -> logout
-                        .logoutUrl("/member/logout")
+                .logout((logout) -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
                         .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
                 );
 
-        return http.build();
+               return  http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

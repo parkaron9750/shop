@@ -14,7 +14,8 @@ spring:
       enabled: true
 
   thymeleaf:
-    cache: false
+    cache: true
+
 
   ##DATABASE##
   datasource:
@@ -36,7 +37,6 @@ spring:
 
     hibernate:
       ddl-auto: update
-
 
 server:
   servlet:

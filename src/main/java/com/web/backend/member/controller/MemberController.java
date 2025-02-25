@@ -30,6 +30,11 @@ public class MemberController {
         return "member/memberLogin";
     }
 
+    @GetMapping("/logout")
+    public String logoutPage() {
+        return "redirect:/";
+    }
+
 
     @GetMapping("/new")
     public String createPage(@ModelAttribute("member") MemberDto memberDto) {
@@ -43,16 +48,21 @@ public class MemberController {
         return "member/memberLogin";
     }
 
-//    @PostMapping("/login")
-//    public String login(@Valid @ModelAttribute("member") MemberDto memberDto, BindingResult bindingResult, Model model) {
-//
-//    }
+    @PostMapping("/login")
+    public String login(@Valid @ModelAttribute("member") MemberDto memberDto
+                            , BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "member/memberLogin";
+        }
+        return "redirect:/";
+    }
+
 
     @PostMapping("/new")
     public String createSubmit(@Valid @ModelAttribute("member") MemberDto memberDto
                                , BindingResult error, Model model) {
 
-        //error 가 발생시 form으로 되돌린다.
+        //error 가 발생시 form 으로 되돌린다.
         if (error.hasErrors()) {
             return "member/memberForm";
         }
