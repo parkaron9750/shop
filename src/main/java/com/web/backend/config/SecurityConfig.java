@@ -20,12 +20,6 @@ public class SecurityConfig {
         /**
          * requestMatchers 는 member 하위 폴더에 있는 파일들은 다 접근이 가능하지만 그 외 파일들은 인증 권한이 있는 사용자만 열수 있다.
          */
-        http.authorizeHttpRequests((authz) -> authz
-                .requestMatchers(("/css/**")).permitAll()
-                .requestMatchers(("/member/**")).permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
-        );
 
         http.formLogin((form) -> form
                         .loginPage("/member/login")
@@ -39,7 +33,18 @@ public class SecurityConfig {
                         .invalidateHttpSession(true)
                 );
 
-               return  http.build();
+        http.authorizeHttpRequests((authz) -> authz
+                .requestMatchers(("/css/**")).permitAll()
+                .requestMatchers(("/")).permitAll()
+                .requestMatchers(("/member/**")).permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated())
+                .exceptionHandling((exception) ->exception
+                .authenticationEntryPoint(new CustomEntryPoint()));
+
+
+
+        return  http.build();
     }
 
 
