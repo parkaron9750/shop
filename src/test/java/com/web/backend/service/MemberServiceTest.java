@@ -1,9 +1,13 @@
 package com.web.backend.service;
 
+import com.web.backend.cart.entity.Cart;
+import com.web.backend.cart.repository.CartRepository;
 import com.web.backend.member.dto.MemberDto;
 import com.web.backend.member.entity.Member;
 import com.web.backend.member.repository.MemberRepository;
 import com.web.backend.member.service.MemberService;
+import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,10 +16,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @Slf4j
 @SpringBootTest
 @Transactional
-public class ServiceTest {
+public class MemberServiceTest {
 
     @Autowired
     private MemberService memberService;
@@ -24,7 +30,13 @@ public class ServiceTest {
     private MemberRepository memberRepository;
 
     @Autowired
+    private CartRepository cartRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private EntityManager em;
 
     public Member createMember() {
         MemberDto memberFormDto = new MemberDto();
@@ -46,10 +58,28 @@ public class ServiceTest {
         Member savedMember = memberService.saveMember(member);
 
 
-//        assertEquals(member.getEmail(), savedMember.getEmail());
-//        assertEquals(member.getName(), savedMember.getName());
-//        assertEquals(member.getAddress(), savedMember.getAddress());
-//        assertEquals(member.getPassword(), savedMember.getPassword());
-//        assertEquals(member.getRole(), savedMember.getRole());
+        assertEquals(member.getEmail(), savedMember.getEmail());
+        assertEquals(member.getName(), savedMember.getName());
+        assertEquals(member.getAddress(), savedMember.getAddress());
+        assertEquals(member.getPassword(), savedMember.getPassword());
+        assertEquals(member.getRole(), savedMember.getRole());
+    }
+
+    @Test
+    void findCartAndMember(){
+        Member member = createMember();
+        memberRepository.save(member);
+
+        Cart cart = new Cart();
+        cart.setMember(member);
+        cartRepository.save(cart);
+
+        em.flush();
+        em.clear();
+
+        Cart findCart = cartRepository.findById(cart.getId()).orElseThrow(
+                EntityExistsException::new);
+
+        assertEquals(findCart.getMember().getId(), member.getId());
     }
 }

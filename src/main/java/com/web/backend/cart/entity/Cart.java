@@ -18,7 +18,7 @@ public class Cart {
     private Long id;
 
 
-    @OneToOne // 1:1 방향
+    @OneToOne(fetch = FetchType.LAZY) // 1:1 방향
     @JoinColumn(name = "member_id") //Join 되는 컬럼 이름
     private Member member;
 }

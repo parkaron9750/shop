@@ -41,10 +41,10 @@ public class Item {
     private String itemDetail;
 
     //상품 등록시간
-    @Column(name = "item_regdate")
+    @Column(name = "item_reg_date")
     private LocalDateTime itemRegDate;
 
     //상품 수정시간
-    @Column(name = "item_up time")
+    @Column(name = "item_up_date")
     private LocalDateTime updateTime;
 }

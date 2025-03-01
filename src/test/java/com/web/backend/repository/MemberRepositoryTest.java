@@ -5,6 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.web.backend.item.Item;
 import com.web.backend.item.ItemSellStatus;
 import com.web.backend.item.repository.ItemRepository;
+import com.web.backend.member.entity.Member;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,12 +27,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-public class RepositoryTest {
+public class MemberRepositoryTest {
 
-    private static final Logger log = LoggerFactory.getLogger(RepositoryTest.class);
+    private static final Logger log = LoggerFactory.getLogger(MemberRepositoryTest.class);
 
     @Autowired
     private EntityManager em;
+
 
     @Autowired
     private JPAQueryFactory queryFactory = new JPAQueryFactory(em);
@@ -147,6 +149,13 @@ public class RepositoryTest {
         for (Item item1 : content) {
             log.info("item1={}",item1);
         }
+    }
+
+    @Test
+    @DisplayName("장바구니 회원 조회")
+    void findByItemRegDateTest(){
+        Member member = new Member();
+
     }
 
 }
