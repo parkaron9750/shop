@@ -1,4 +1,4 @@
-package com.web.backend.cart.entity;
+package com.web.backend.order.entity;
 
 import com.web.backend.item.Item;
 import jakarta.persistence.*;
@@ -6,27 +6,34 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Setter
-@Getter
-@NoArgsConstructor
-public class CartItem {
+import java.time.LocalDateTime;
 
-    /**
-     * 장바구니에 담기는 상품
-     */
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+public class OrderItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_item_id")
+    @Column(name = "order_item_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
 
+    private int orderPrice;
+
     private int count;
+
+    private LocalDateTime regTime;
+
+    private LocalDateTime updateTime;
+
+
 }
