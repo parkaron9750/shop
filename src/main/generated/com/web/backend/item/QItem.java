@@ -19,21 +19,31 @@ public class QItem extends EntityPathBase<Item> {
 
     public static final QItem item = new QItem("item");
 
+    public final com.web.backend.utils.entity.QBaseEntity _super = new com.web.backend.utils.entity.QBaseEntity(this);
+
+    //inherited
+    public final StringPath createdBy = _super.createdBy;
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath itemDetail = createString("itemDetail");
 
     public final StringPath itemName = createString("itemName");
 
-    public final DateTimePath<java.time.LocalDateTime> itemRegDate = createDateTime("itemRegDate", java.time.LocalDateTime.class);
+    //inherited
+    public final StringPath modifiedBy = _super.modifiedBy;
 
     public final NumberPath<Integer> price = createNumber("price", Integer.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regTime = _super.regTime;
 
     public final EnumPath<ItemSellStatus> status = createEnum("status", ItemSellStatus.class);
 
     public final NumberPath<Integer> stock = createNumber("stock", Integer.class);
 
-    public final DateTimePath<java.time.LocalDateTime> updateTime = createDateTime("updateTime", java.time.LocalDateTime.class);
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updateTime = _super.updateTime;
 
     public QItem(String variable) {
         super(Item.class, forVariable(variable));

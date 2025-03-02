@@ -2,6 +2,7 @@ package com.web.backend.order.entity;
 
 import com.web.backend.member.entity.Member;
 import com.web.backend.order.constant.OrderStatus;
+import com.web.backend.utils.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,9 +33,6 @@ public class Order {
 
     private LocalDateTime orderDate;
 
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
-
-    private LocalDateTime regTime;
-
-    private LocalDateTime updateTime;
 }

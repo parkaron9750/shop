@@ -1,9 +1,8 @@
 package com.web.backend.item;
 
+import com.web.backend.utils.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "item")
@@ -12,7 +11,7 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item {
+public class Item extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,11 +39,4 @@ public class Item {
     @Column(name = "item_detail", nullable = false)
     private String itemDetail;
 
-    //상품 등록시간
-    @Column(name = "item_reg_date")
-    private LocalDateTime itemRegDate;
-
-    //상품 수정시간
-    @Column(name = "item_up_date")
-    private LocalDateTime updateTime;
 }

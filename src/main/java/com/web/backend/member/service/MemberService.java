@@ -21,13 +21,10 @@ public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
 
     public Member saveMember(Member member) {
-        validateMember(member);
         return memberRepository.save(member);
     }
 
-    private void validateMember(Member member) {
-        memberRepository.findByEmail(member.getEmail()).orElseThrow(EntityNotFoundException::new);
-    }
+
 
     /**
      * 자동로그인 기능

@@ -2,6 +2,7 @@ package com.web.backend.member.entity;
 
 import com.web.backend.member.constart.Role;
 import com.web.backend.member.dto.MemberDto;
+import com.web.backend.utils.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
