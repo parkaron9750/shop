@@ -1,4 +1,4 @@
-package com.web.backend.cart.entity;
+package com.web.backend.item.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -11,32 +11,36 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QCartItem is a Querydsl query type for CartItem
+ * QItemImg is a Querydsl query type for ItemImg
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QCartItem extends EntityPathBase<CartItem> {
+public class QItemImg extends EntityPathBase<ItemImg> {
 
-    private static final long serialVersionUID = -615546991L;
+    private static final long serialVersionUID = 87940703L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QCartItem cartItem = new QCartItem("cartItem");
+    public static final QItemImg itemImg = new QItemImg("itemImg");
 
     public final com.web.backend.utils.entity.QBaseEntity _super = new com.web.backend.utils.entity.QBaseEntity(this);
-
-    public final QCart cart;
-
-    public final NumberPath<Integer> count = createNumber("count", Integer.class);
 
     //inherited
     public final StringPath createdBy = _super.createdBy;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final com.web.backend.item.entity.QItem item;
+    public final StringPath imgMain = createString("imgMain");
+
+    public final StringPath imgName = createString("imgName");
+
+    public final StringPath imgUrl = createString("imgUrl");
+
+    public final QItem item;
 
     //inherited
     public final StringPath modifiedBy = _super.modifiedBy;
+
+    public final StringPath oriImgName = createString("oriImgName");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regTime = _super.regTime;
@@ -44,26 +48,25 @@ public class QCartItem extends EntityPathBase<CartItem> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updateTime = _super.updateTime;
 
-    public QCartItem(String variable) {
-        this(CartItem.class, forVariable(variable), INITS);
+    public QItemImg(String variable) {
+        this(ItemImg.class, forVariable(variable), INITS);
     }
 
-    public QCartItem(Path<? extends CartItem> path) {
+    public QItemImg(Path<? extends ItemImg> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QCartItem(PathMetadata metadata) {
+    public QItemImg(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QCartItem(PathMetadata metadata, PathInits inits) {
-        this(CartItem.class, metadata, inits);
+    public QItemImg(PathMetadata metadata, PathInits inits) {
+        this(ItemImg.class, metadata, inits);
     }
 
-    public QCartItem(Class<? extends CartItem> type, PathMetadata metadata, PathInits inits) {
+    public QItemImg(Class<? extends ItemImg> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.cart = inits.isInitialized("cart") ? new QCart(forProperty("cart"), inits.get("cart")) : null;
-        this.item = inits.isInitialized("item") ? new com.web.backend.item.entity.QItem(forProperty("item")) : null;
+        this.item = inits.isInitialized("item") ? new QItem(forProperty("item")) : null;
     }
 
 }

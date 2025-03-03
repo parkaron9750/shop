@@ -1,4 +1,4 @@
-package com.web.backend.item;
+package com.web.backend.item.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QItem extends EntityPathBase<Item> {
 
-    private static final long serialVersionUID = -421063283L;
+    private static final long serialVersionUID = -265413948L;
 
     public static final QItem item = new QItem("item");
 
@@ -38,7 +38,7 @@ public class QItem extends EntityPathBase<Item> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regTime = _super.regTime;
 
-    public final EnumPath<ItemSellStatus> status = createEnum("status", ItemSellStatus.class);
+    public final EnumPath<com.web.backend.item.constrat.ItemSellStatus> status = createEnum("status", com.web.backend.item.constrat.ItemSellStatus.class);
 
     public final NumberPath<Integer> stock = createNumber("stock", Integer.class);
 

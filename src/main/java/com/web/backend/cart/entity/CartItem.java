@@ -1,6 +1,6 @@
 package com.web.backend.cart.entity;
 
-import com.web.backend.item.Item;
+import com.web.backend.item.entity.Item;
 import com.web.backend.utils.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;

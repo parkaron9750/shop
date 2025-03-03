@@ -1,5 +1,6 @@
-package com.web.backend.item;
+package com.web.backend.item.entity;
 
+import com.web.backend.item.constrat.ItemSellStatus;
 import com.web.backend.utils.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;

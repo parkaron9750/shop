@@ -2,8 +2,8 @@ package com.web.backend.repository;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.web.backend.item.Item;
-import com.web.backend.item.ItemSellStatus;
+import com.web.backend.item.constrat.ItemSellStatus;
+import com.web.backend.item.entity.Item;
 import com.web.backend.item.repository.ItemRepository;
 import com.web.backend.member.entity.Member;
 import jakarta.persistence.EntityManager;
@@ -22,7 +22,7 @@ import org.thymeleaf.util.StringUtils;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.web.backend.item.QItem.item;
+import static com.web.backend.item.entity.QItem.item;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -49,7 +49,6 @@ public class MemberRepositoryTest {
             item.setStock(10 + i);
             item.setStatus(ItemSellStatus.SELL);
             item.setItemDetail("테스트 상세 내용" + i);
-            item.setItemRegDate(LocalDateTime.now());
             item.setUpdateTime(LocalDateTime.now());
 
             repository.save(item);
@@ -64,7 +63,6 @@ public class MemberRepositoryTest {
             item.setStock(10 + i);
             item.setStatus(ItemSellStatus.SELL);
             item.setItemDetail("테스트 상세 내용" + i);
-            item.setItemRegDate(LocalDateTime.now());
             item.setUpdateTime(LocalDateTime.now());
             repository.save(item);
         }
@@ -75,7 +73,6 @@ public class MemberRepositoryTest {
             item.setStock(0);
             item.setStatus(ItemSellStatus.SOLD_OUT);
             item.setItemDetail("테스트 상세 내용" + i);
-            item.setItemRegDate(LocalDateTime.now());
             item.setUpdateTime(LocalDateTime.now());
             repository.save(item);
         }

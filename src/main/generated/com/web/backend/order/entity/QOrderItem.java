@@ -31,7 +31,7 @@ public class QOrderItem extends EntityPathBase<OrderItem> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final com.web.backend.item.QItem item;
+    public final com.web.backend.item.entity.QItem item;
 
     //inherited
     public final StringPath modifiedBy = _super.modifiedBy;
@@ -64,7 +64,7 @@ public class QOrderItem extends EntityPathBase<OrderItem> {
 
     public QOrderItem(Class<? extends OrderItem> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.item = inits.isInitialized("item") ? new com.web.backend.item.QItem(forProperty("item")) : null;
+        this.item = inits.isInitialized("item") ? new com.web.backend.item.entity.QItem(forProperty("item")) : null;
         this.order = inits.isInitialized("order") ? new QOrder(forProperty("order"), inits.get("order")) : null;
     }
 

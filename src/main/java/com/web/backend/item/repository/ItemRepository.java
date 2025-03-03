@@ -1,6 +1,6 @@
 package com.web.backend.item.repository;
 
-import com.web.backend.item.Item;
+import com.web.backend.item.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
