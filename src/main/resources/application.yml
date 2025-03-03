@@ -54,7 +54,6 @@ server:
       force-response: true
 
 
-itemImgLocation: D:/shop/item
 uploadPath: D:/shop/item
 
 

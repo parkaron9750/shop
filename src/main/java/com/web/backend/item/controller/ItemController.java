@@ -66,4 +66,30 @@ public class ItemController {
         }
         return "item/itemForm";
     }
+
+    @PostMapping("/admin/item/{itemId}")
+    public String itemUpdate(@Valid ItemFormDto dto, //검증
+                             BindingResult bindingResult, //오류
+                             @RequestParam("itemImgFile")List<MultipartFile> imgFile, //매개변수 값
+                             Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "item/itemForm";
+        }
+        if(imgFile.get(0).isEmpty() && dto.getId() == null) {
+            model.addAttribute("errorMessage", "첫번 째 이미지는 필수 항목입니다.");
+            return "item/itemForm";
+        }
+
+        try {
+            itemService.updateItem(dto,imgFile);
+        } catch (IOException e) {
+            model.addAttribute("errorMessage", "상품 수정하는데 실패하였습니다. 다시 확인해주세요.");
+            return "item/itemForm";
+        }
+
+        return "redirect:/";
+
+    }
+
 }

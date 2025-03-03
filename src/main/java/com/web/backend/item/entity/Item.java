@@ -1,6 +1,7 @@
 package com.web.backend.item.entity;
 
 import com.web.backend.item.constrat.ItemSellStatus;
+import com.web.backend.item.dto.ItemFormDto;
 import com.web.backend.utils.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -40,4 +41,12 @@ public class Item extends BaseEntity {
     @Column(name = "item_detail", nullable = false)
     private String itemDetail;
 
+    //상품 업데이트 관련
+    public void updateItem(ItemFormDto dto){
+        this.itemName = dto.getItemName();
+        this.price = dto.getPrice();
+        this.stock = dto.getStock();
+        this.status = dto.getStatus();
+        this.itemDetail = dto.getItemDetail();
+    }
 }

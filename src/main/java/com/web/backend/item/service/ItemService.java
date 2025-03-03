@@ -6,6 +6,7 @@ import com.web.backend.item.entity.Item;
 import com.web.backend.item.entity.ItemImg;
 import com.web.backend.item.repository.ItemImgRepository;
 import com.web.backend.item.repository.ItemRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,4 +57,18 @@ public class ItemService {
         formDto.setItemImgList(dtoImgList);
         return formDto;
     }
+
+    public Long updateItem(ItemFormDto dto, List<MultipartFile> itemImgList) throws IOException {
+
+        Item item = itemRepository.findById(dto.getId()).orElseThrow(EntityNotFoundException::new);
+        item.updateItem(dto);
+
+        List<Long> itemImgIds = dto.getItemImgIdList();
+        for (int i = 0; i < itemImgIds.size(); i++) {
+            itemImgService.updateItemImg(itemImgIds.get(i), itemImgList.get(i));
+        }
+
+        return item.getId();
+    }
+
 }
